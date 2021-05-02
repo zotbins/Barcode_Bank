@@ -2,6 +2,8 @@
 fastapi==0.55.1
 uvicorn==0.11.3
 pydantic==1.4
+async-exit-stack 
+async-generator
 
 # db
 databases[postgresql]==0.4.2

@@ -11,17 +11,6 @@ def get_application():
 
     app.include_router(barcode_router.router, prefix="/barcode", tags=["Barcode"])
 
-    app.add_middleware(
-        CORSMiddleware,
-        allow_origins=["*"],
-        allow_credentials=True,
-        allow_methods=["*"],
-        allow_headers=["*"],
-    )
-
-    app.add_event_handler("startup", database.create_start_app_handler(app))
-    app.add_event_handler("shutdown", database.create_stop_app_handler(app))
-
     return app
 
 
