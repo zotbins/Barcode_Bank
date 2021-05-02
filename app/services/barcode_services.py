@@ -16,3 +16,7 @@ def post_barcode(db: Session, barcode_item: barcode_model.Barcode):
     db.commit()
     db.refresh(db_item)
     return db_item
+
+
+def is_barcode_unique(db: Session, barcode_item: barcode_model.Barcode):
+    return db.query(barcode_model.BarcodeDB).get(barcode_item.barcode) is None

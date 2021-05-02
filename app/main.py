@@ -1,7 +1,7 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 
-from routers import barcode_router
+from routers import router
 from services import database
 import config
 
@@ -9,7 +9,7 @@ import config
 def get_application():
     app = FastAPI(title=config.PROJECT_NAME, version=config.VERSION)
 
-    app.include_router(barcode_router.router, prefix="/barcode", tags=["Barcode"])
+    app.include_router(router)
 
     return app
 
