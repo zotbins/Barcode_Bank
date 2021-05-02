@@ -3,7 +3,7 @@ from starlette.datastructures import Secret
 
 config = Config(".env")
 
-PROJECT_NAME = "Barcode Bank"
+PROJECT_NAME = "ZotBins Barcode Bank"
 VERSION = "1.0.0"
 
 SECRET_KEY = config("SECRET_KEY", cast=Secret, default="CHANGEME")
