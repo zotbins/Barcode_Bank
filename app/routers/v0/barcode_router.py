@@ -1,10 +1,10 @@
-from fastapi import APIRouter, Depends, HTTPException
+from fastapi import APIRouter, Depends, HTTPException, Security
 from fastapi.responses import JSONResponse
 from typing import List
 from pydantic import constr
 from sqlalchemy.orm import Session
 
-from services import database, barcode_services
+from services import database, barcode_services, security
 from models import barcode_model
 from controllers import barcode_controller
 
@@ -34,6 +34,7 @@ router = APIRouter()
             },
         },
     },
+    dependencies=[Security(security.get_write_api_key)],
 )
 def post_barcode(
     barcode_item: barcode_model.Barcode, db: Session = Depends(database.get_db)
@@ -53,6 +54,7 @@ def post_barcode(
             },
         },
     },
+    dependencies=[Security(security.get_read_api_key)],
 )
 def get_barcode(
     barcode_id: constr(max_length=13), db: Session = Depends(database.get_db)
