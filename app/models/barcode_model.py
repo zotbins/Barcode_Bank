@@ -1,22 +1,30 @@
-from pydantic import BaseModel, constr
+"""SQLAlchemy & Pydantic barcode models"""
+
 from enum import Enum
+from pydantic import BaseModel, constr
 from sqlalchemy import Column, VARCHAR, String
 
 from services.database import Base
 
 
 class Bin(str, Enum):
+    """Bin type enumeration"""
+
     landfill = "Landfill"
     recycle = "Recycle"
     compost = "Compost"
 
 
 class Barcode(BaseModel):
+    """Pydantic barcode model"""
+
     barcode: constr(max_length=13)
     item: str
     bin: Bin
 
     class Config:
+        """Pydantic config class"""
+
         orm_mode = True
         schema_extra = {
             "example": {
@@ -27,12 +35,9 @@ class Barcode(BaseModel):
         }
 
 
-class BarcodeResponse(BaseModel):
-    message: str
-    data: Barcode
-
-
 class BarcodeDB(Base):
+    """SQLAlchemy barcode model"""
+
     __tablename__ = "barcodes"
 
     barcode = Column(VARCHAR(13), primary_key=True)

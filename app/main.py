@@ -1,5 +1,4 @@
 from fastapi import FastAPI
-from starlette.responses import RedirectResponse
 
 from routers import router
 from services import database

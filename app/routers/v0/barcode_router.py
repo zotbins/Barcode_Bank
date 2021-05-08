@@ -1,10 +1,9 @@
-from fastapi import APIRouter, Depends, HTTPException, Security
-from fastapi.responses import JSONResponse
-from typing import List
+"""Barcode router """
+from fastapi import APIRouter, Depends, Security
 from pydantic import constr
 from sqlalchemy.orm import Session
 
-from services import database, barcode_services, security
+from services import database, security
 from models import barcode_model
 from controllers import barcode_controller
 
@@ -20,7 +19,7 @@ router = APIRouter()
             "content": {
                 "application/json": {
                     "example": {
-                        "message": "Barcode has been successfully added to the database"
+                        "detail": "Barcode has been successfully added to the database"
                     }
                 }
             },
@@ -29,7 +28,7 @@ router = APIRouter()
             "description": "Barcode already exists in database",
             "content": {
                 "application/json": {
-                    "example": {"message": "Barcode already exists in database"}
+                    "example": {"detail": "Barcode already exists in database"}
                 }
             },
         },
@@ -50,7 +49,7 @@ def post_barcode(
         400: {
             "description": "Barcode not found",
             "content": {
-                "application/json": {"example": {"message": "Barcode not found"}}
+                "application/json": {"example": {"detail": "Barcode not found"}}
             },
         },
     },

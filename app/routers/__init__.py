@@ -1,3 +1,4 @@
+""" Barcode bank routers """
 from fastapi import APIRouter
 
 from routers.v0 import barcode_router
