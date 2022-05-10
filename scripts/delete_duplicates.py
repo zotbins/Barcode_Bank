@@ -1,7 +1,7 @@
 import pandas as pd
 import sys
 
-if len(sys.argv) < 3:
+if len(sys.argv) < 4:
     print("Not enough arguments")
     print("Usage: delete_duplicates.py [DUPLICATE_CSV] [ORIGINAL_CSV] [OUTPUT_CSV]\n")
     print("DUPLICATE_CSV: Path to CSV with rows to remove from original CSV")
