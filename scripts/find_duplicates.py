@@ -11,8 +11,11 @@ import pandas as pd
 import sys
 
 if len(sys.argv) < 3:
-	print("Not enough arguments")
-	sys.exit()
+    print("Not enough arguments")
+    print("Usage: find_duplicates.py [ORIGINAL_CSV] [OUTPUT_CSV]\n")
+    print("ORIGINAL_CSV: Path to CSV original CSV")
+    print("OUTPUT_CSV: Path to CSV to be created with rows of all duplicates")
+    sys.exit()
 
 
 barcodes = pd.read_csv(sys.argv[1])
@@ -22,5 +25,5 @@ duplicate_barcodes = barcodes.groupby('Barcode').filter(lambda x: len(x) > 1)
 # Path used to write the csv file to
 PATH = sys.argv[2]
 
-duplicate_barcodes.to_csv(path, index=True, header=True)
+duplicate_barcodes.to_csv(PATH, index=True, header=True)
 
