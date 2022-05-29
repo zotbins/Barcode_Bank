@@ -27,10 +27,31 @@ def add_barcode(barcode_item: barcode_model.Barcode, db: Session):
         barcode_services.post_barcode(db=db, barcode_item=barcode_item)
         return JSONResponse(
             status_code=201,
-            content={"detail": "Barcode has been successfully added to the database"},
+            content={
+                "detail": "Barcode has been successfully added to the database"},
         )
 
-    raise HTTPException(status_code=400, detail="Barcode already exists in database")
+
+def add_barcodes(barcodes: barcode_model.Barcodes, db: Session):
+    """Adds unique barcodes to database. Only inserts if all of the barcodes are unique.
+
+    Args:
+        barcodes (barcode_model.Barcodes): List of barcodes to be added
+        db (Session): Database session
+
+    Raises:
+        HTTPException: 400 Exception if barcode is not unique
+
+    Returns:
+        JSONResponse: Returns success response if successfully added
+    """
+    if barcode_services.are_all_barcodes_unique(db=db, barcodes=barcodes):
+        barcode_services.post_barcodes(db=db, barcodes=barcodes)
+        return JSONResponse(
+            status_code=201,
+            content={
+                "detail": "All barcodes have been successfully added to the database"}
+        )
 
 
 def get_barcode(barcode_id: constr(max_length=13), db: Session):
