@@ -41,6 +41,35 @@ def post_barcode(
     return barcode_controller.add_barcode(barcode_item=barcode_item, db=db)
 
 
+@router.post(
+    "/barcodes",
+    status_code=201,
+    responses={
+        201: {
+            "description": "All barcodes have been successfully added to the database",
+            "content": {
+                "application/json": {
+                    "example": {
+                        "detail": "All barcodes have been successfully added to the database"
+                    }
+                }
+            },
+        },
+        400: {
+            "description": "Barcode already exists",
+            "content": {
+                "application/json": {
+                    "example": {"detail": {"message": "Barcodes already exists in database", "duplicates": [12312, 912831]}}
+                }
+            },
+        },
+    },
+    dependencies=[Security(security.get_write_api_key)],
+)
+def post_barcodes(barcodes: barcode_model.Barcodes, db: Session = Depends(database.get_db)):
+    return barcode_controller.add_barcodes(barcodes=barcodes, db=db)
+
+
 @router.get(
     "/barcode/{barcode_id}",
     response_model=barcode_model.Barcode,

@@ -1,5 +1,6 @@
 """SQLAlchemy & Pydantic barcode models"""
 
+from typing import List
 from enum import Enum
 from pydantic import BaseModel, constr
 from sqlalchemy import Column, VARCHAR, String
@@ -33,6 +34,10 @@ class Barcode(BaseModel):
                 "bin": "Recycle",
             }
         }
+
+class Barcodes(BaseModel):
+    """List of barcodes"""
+    barcodes: List[Barcode]
 
 
 class BarcodeDB(Base):

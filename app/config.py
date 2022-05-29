@@ -5,7 +5,7 @@ from starlette.config import Config
 config = Config(".env")
 
 PROJECT_NAME = "ZotBins Barcode Bank"
-VERSION = "1.0.0"
+VERSION = "1.0.1"
 
 SECRET_KEY = config("SECRET_KEY", cast=str, default="CHANGEME")
 
